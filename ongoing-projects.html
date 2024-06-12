@@ -25,14 +25,26 @@
             margin: 10px;
             background: white;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            display: none; /* Hide the section initially */
         }
     </style>
+    <script>
+        function checkPassword() {
+            var password = prompt("Please enter the password to view this section:");
+            if (password === "************") { 
+                document.getElementById("protected-section").style.display = "block";
+            } else {
+                alert("Incorrect password. You will be redirected.");
+                window.location.href = "index.html";
+            }
+        }
+    </script>
 </head>
-<body>
+<body onload="checkPassword()">
     <header>
         <h1>Ongoing Projects</h1>
     </header>
-    <section>
+    <section id="protected-section">
         <h2>Current Work</h2>
         <p>Here you can find details about my ongoing projects. This section is protected and requires a password to access.</p>
         <!-- Ajoutez ici le contenu des projets en cours -->
