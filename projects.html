@@ -1,119 +1,367 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guillaume Eymery - Projects</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            padding-bottom: 50px; /* Ajoutez ce padding pour compenser le footer */
-            background-color: #f4f4f4;
-            color: #333;
-        }
-        header {
-            background-image: url('background-picture.jpg');
-            color: white;
-            padding: 1rem 0;
-            text-align: center;
-            background-size: cover;
-            background-position: center;
-        }
-        nav {
-            display: flex;
-            justify-content: center;
-            background-color: #333;
-        }
-        nav a {
-            color: white;
-            padding: 14px 20px;
-            text-decoration: none;
-            text-align: center;
-        }
-        nav a:hover {
-            background-color: #ddd;
-            color: black;
-        }
-        section {
-            padding: 20px;
-            margin: 10px;
-            background: white;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-        footer {
-            text-align: center;
-            padding: 10px;
-            background-image: url('background-picture.jpg');
-            color: white;
-            position: fixed;
-            width: 100%;
-            bottom: 0;
-            background-size: cover;
-            background-position: center;
-        }
-        .project-links a {
-            display: block;
-            margin: 10px 0;
-            color: #4CAF50;
-            text-decoration: none;
-        }
-        .project-links a:hover {
-            text-decoration: underline;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Guillaume Eymery — Projects</title>
+  <style>
+    :root{
+      --bg: #0b1220;
+      --surface: rgba(255,255,255,0.06);
+      --surface2: rgba(255,255,255,0.10);
+      --text: #e8eefc;
+      --muted: rgba(232,238,252,0.72);
+      --brand: #7c3aed;
+      --border: rgba(255,255,255,0.14);
+      --shadow: 0 18px 60px rgba(0,0,0,0.35);
+      --radius: 18px;
+      --max: 1060px;
+    }
+    *{ box-sizing: border-box; }
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      background:
+        radial-gradient(1200px 600px at 10% 0%, rgba(124,58,237,0.28), transparent 60%),
+        radial-gradient(900px 500px at 90% 10%, rgba(34,197,94,0.18), transparent 55%),
+        var(--bg);
+      color: var(--text);
+    }
+    .container{ width: min(var(--max), calc(100% - 40px)); margin: 0 auto; }
+
+    header{
+      padding: 34px 0 18px;
+    }
+    .topbar{
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 16px;
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, var(--surface2), var(--surface));
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+    .who{
+      display:flex; align-items:center; gap: 12px;
+      min-width: 220px;
+    }
+    .logo{
+      width: 44px; height: 44px;
+      border-radius: 12px;
+      object-fit: cover;
+      border: 1px solid rgba(255,255,255,0.18);
+      background: rgba(255,255,255,0.08);
+    }
+    h1{ margin:0; font-size: 1.2rem; letter-spacing: -0.01em; }
+    .subtitle{ margin: 4px 0 0; color: var(--muted); font-size: 0.95rem; }
+
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.06);
+      color: var(--text);
+      text-decoration:none;
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+      white-space: nowrap;
+    }
+    .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,0.09); border-color: rgba(255,255,255,0.22); }
+
+    main{ padding: 18px 0 50px; }
+
+    .controls{
+      display:grid;
+      grid-template-columns: 1fr 220px;
+      gap: 10px;
+      margin: 14px 0;
+    }
+    .input, select{
+      width: 100%;
+      padding: 12px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.06);
+      color: var(--text);
+      outline: none;
+    }
+    .input::placeholder{ color: rgba(232,238,252,0.5); }
+
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .card{
+      padding: 16px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.06);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.24);
+    }
+    .card h2{
+      margin:0 0 8px;
+      font-size: 1.05rem;
+      letter-spacing: -0.01em;
+    }
+    .hint{ margin: 0 0 10px; color: var(--muted); line-height: 1.55; }
+
+    .project{
+      display:flex;
+      justify-content: space-between;
+      align-items:flex-start;
+      gap: 12px;
+      padding: 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.04);
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+      margin-top: 10px;
+    }
+    .project:hover{ transform: translateY(-1px); background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.16); }
+    .meta{ color: var(--muted); font-size: 0.92rem; margin-top: 4px; line-height: 1.4; }
+    .tag{
+      font-size: 0.78rem;
+      padding: 6px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.14);
+      color: rgba(232,238,252,0.9);
+      background: rgba(124,58,237,0.14);
+      white-space: nowrap;
+    }
+    .project a{ text-decoration: none; color: var(--text); }
+    .project a:hover{ text-decoration: underline; text-underline-offset: 3px; }
+
+    footer{
+      padding: 20px 0 30px;
+      color: rgba(232,238,252,0.55);
+      text-align: center;
+    }
+
+    @media (max-width: 900px){
+      .grid{ grid-template-columns: 1fr; }
+      .controls{ grid-template-columns: 1fr; }
+      .topbar{ flex-direction: column; align-items: stretch; }
+      .who{ justify-content: center; text-align:center; }
+    }
+  </style>
 </head>
+
 <body>
-    <header>
-        <img src="logo-ecoles.png" class="profile" height = "100">
-        <h1>Guillaume Eymery</h1>
-        <p>Graduate Student at University of GeorgiaTech in Industrial and Systems Engineering</p>
-    </header>
-    <nav>
-        <a href="index.html#about">About Me</a>
-        <a href="projects.html">Projects</a>
-        <a href="index.html#cv">CV</a>
-        <a href="index.html#contact">Contact</a>
-        <a href="index.html#linkedin">LinkedIn</a>
-    </nav>
-    <section id="projects">
-        <h2>Projects</h2>
-        <div class="project-links">
-            <h3>Research Projects</h3>
-            <a href="CapstoneProjectv1.pdf" target="_blank">EN - Conditional Factor Augmented Vector Autoregression (CFAVAR) - Report</a>
-            <a href="georgia_tech_capstone_Final.pdf" target="_blank">EN - Conditional Factor Augmented Vector Autoregression (CFAVAR) - Presentation</a>
-            <a href="xbrl_comparative_study.pdf" target="_blank">EN - XBRL and Compustat, a Comparative Study</a>
-            <a href="ArticleV4.pdf" target="_blank">EN - Portfolio Optimization and Sharpe Ratio Applied in Stock Trading Strategies</a>
+  <header class="container">
+    <div class="topbar">
+      <div class="who">
+        <img src="logo-ecoles.png" alt="Logo" class="logo" />
+        <div>
+          <h1>Projects</h1>
+          <p class="subtitle">Recherche + filtres (type / école) pour retrouver vite un PDF.</p>
         </div>
-        <div class="project-links">
-            <h3>GeorgiaTech Projects</h3>
-            <a href="ISYE6339_Case1.pdf" target="_blank">EN - ISYE 6339 - BotWorld DedicatedSupply Chain Casework Report </a>
-            <a href="ISYE 6339 - BotWorld DedicatedSupply Chain Casework 1.1 2025.pdf" target="_blank">EN - ISYE 6339 - BotWorld DedicatedSupply Chain Casework Wording </a>
-            <a href="ISYE6202_Case1_report.pdf" target="_blank">EN - ISYE 6202 - FruitSoul Demand and Capacity Modeling Under Full Clairvoyance Report </a>
-            <a href="ISYE 6202 Casework 1.1 - FruitSoul Demand and Capacity Modeling Under Full Clairvoyance- Fall 2024.pdf" target="_blank">EN - ISYE 6202 - FruitSoul Demand and Capacity Modeling Under Full Clairvoyance Wording </a>
-            <a href="ISYE6202_Case2_report.pdf" target="_blank">EN - ISYE 6202 - HelpBots SC Facility Network Analysis-Planning-Simulation Report</a>
-            <a href="ISYE 6202 Casework 2.1 HelpBots SC Facility Network Analysis-Planning-Simulation - Fall 2024.pdf" target="_blank">EN - ISYE 6202 - HelpBots SC Facility Network Analysis-Planning-Simulation Wording</a>
-            <a href="ISYE6202_Case3_report.pdf" target="_blank">EN - ISYE 6202 - YubWeng Factory Organisation Testbed Report</a>
-            <a href="ISYE 6202 Casework 3 YubWeng Factory Organisation Testbed.pdf" target="_blank">EN - ISYE 6202 - YubWeng Factory Organisation Testbed Wording</a>
-            <a href="ISYE6202_Case4_report.pdf" target="_blank">EN - ISYE 6202 - EasyNode Smart Locker Design Report</a>
-            <a href="ISYE6202 Casework 4.1 EasyNode Smart Locker Design" target="_blank">EN - ISYE 6202 - EasyNode Smart Locker Design Wording</a>
+      </div>
+      <div style="display:flex; gap:10px; flex-wrap:wrap; justify-content:center;">
+        <a class="btn" href="index.html">← Retour accueil</a>
+        <a class="btn" href="index.html#contact">Contact</a>
+        <a class="btn" href="https://www.linkedin.com/in/guillaume-eymery-849a56322/" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="controls">
+      <input id="search" class="input" type="search" placeholder="Rechercher un projet (ex: CFAVAR, XBRL, ISYE6202…)" />
+      <select id="filter">
+        <option value="all">Tous</option>
+        <option value="Research">Research</option>
+        <option value="GeorgiaTech">GeorgiaTech</option>
+        <option value="Arts et Métiers">Arts et Métiers</option>
+        <option value="Classe Préparatoire">Classe Préparatoire</option>
+      </select>
+    </div>
+
+    <div class="grid" id="grid">
+      <!-- Research -->
+      <section class="card" data-group="Research">
+        <h2>Research Projects</h2>
+        <p class="hint">Articles / études / optimisation de portefeuille / macro.</p>
+
+        <div class="project" data-title="CFAVAR report conditional factor augmented vector autoregression" data-group="Research">
+          <div>
+            <a href="CapstoneProjectv1.pdf" target="_blank" rel="noopener"><strong>EN — CFAVAR — Report</strong></a>
+            <div class="meta">Conditional Factor Augmented Vector Autoregression.</div>
+          </div>
+          <span class="tag">Research</span>
         </div>
-        <div class="project-links">
-            <h3>Arts et Métiers Projects</h3>
-            <a href="Dossier_Cas_Etude_Groupe1.pdf" target="_blank">FR - Sizing and Creation of a Clock Using Additive Manufacturing</a>
-            <a href="Compressor_Report_BRUGEROLLE_BERDESH_EYMERY_CHUTTARSING (1).pdf" target="_blank">EN - Sizing and Creation of a Centrifugal Compressor Using Additive Manufacturing</a>
-            <a href="ilovepdf_merged.pdf" target="_blank">FR - Sizing and CAD of a City Wind Turbine</a>
+
+        <div class="project" data-title="CFAVAR presentation conditional factor augmented vector autoregression" data-group="Research">
+          <div>
+            <a href="georgia_tech_capstone_Final.pdf" target="_blank" rel="noopener"><strong>EN — CFAVAR — Presentation</strong></a>
+            <div class="meta">Slides / defense material.</div>
+          </div>
+          <span class="tag">Research</span>
         </div>
-        <div class="project-links">
-            <h3>Classe Préparatoire Projects</h3>
-            <a href="TIPE EYMERY 2022.pdf" target="_blank">FR - Principle and Application of Doppler Velocimetry in Ophthalmologic Hemodynamics</a>
-            <a href="TIPE EYMERY.pdf" target="_blank">FR - Study of the attenuation of high-frequency electromagnetic waves through the walls of High Environmental Quality (HQE) buildings</a>
+
+        <div class="project" data-title="xbrl compustat comparative study" data-group="Research">
+          <div>
+            <a href="xbrl_comparative_study.pdf" target="_blank" rel="noopener"><strong>EN — XBRL and Compustat, a Comparative Study</strong></a>
+            <div class="meta">Data comparability / financial reporting.</div>
+          </div>
+          <span class="tag">Research</span>
         </div>
-    </section>
-    <footer>
-        <p>&copy; 2025 Guillaume Eymery</p>
-    </footer>
+
+        <div class="project" data-title="portfolio optimization sharpe ratio stock trading strategies" data-group="Research">
+          <div>
+            <a href="ArticleV4.pdf" target="_blank" rel="noopener"><strong>EN — Portfolio Optimization & Sharpe Ratio</strong></a>
+            <div class="meta">Trading strategies, performance metrics.</div>
+          </div>
+          <span class="tag">Research</span>
+        </div>
+      </section>
+
+      <!-- GT -->
+      <section class="card" data-group="GeorgiaTech">
+        <h2>GeorgiaTech Projects</h2>
+        <p class="hint">Caseworks / supply chain / planning-simulation.</p>
+
+        <div class="project" data-title="ISYE 6339 botworld dedicated supply chain report" data-group="GeorgiaTech">
+          <div>
+            <a href="ISYE6339_Case1.pdf" target="_blank" rel="noopener"><strong>EN — ISYE 6339 — BotWorld Report</strong></a>
+            <div class="meta">Dedicated supply chain casework.</div>
+          </div>
+          <span class="tag">GeorgiaTech</span>
+        </div>
+
+        <div class="project" data-title="ISYE 6339 botworld wording" data-group="GeorgiaTech">
+          <div>
+            <a href="ISYE 6339 - BotWorld DedicatedSupply Chain Casework 1.1 2025.pdf" target="_blank" rel="noopener"><strong>EN — ISYE 6339 — BotWorld Wording</strong></a>
+            <div class="meta">Problem statement / wording.</div>
+          </div>
+          <span class="tag">GeorgiaTech</span>
+        </div>
+
+        <div class="project" data-title="ISYE 6202 fruitsoul demand capacity modeling report" data-group="GeorgiaTech">
+          <div>
+            <a href="ISYE6202_Case1_report.pdf" target="_blank" rel="noopener"><strong>EN — ISYE 6202 — FruitSoul Report</strong></a>
+            <div class="meta">Demand & capacity under full clairvoyance.</div>
+          </div>
+          <span class="tag">GeorgiaTech</span>
+        </div>
+
+        <div class="project" data-title="ISYE 6202 helpbots facility network analysis report" data-group="GeorgiaTech">
+          <div>
+            <a href="ISYE6202_Case2_report.pdf" target="_blank" rel="noopener"><strong>EN — ISYE 6202 — HelpBots Report</strong></a>
+            <div class="meta">Facility network analysis / planning / simulation.</div>
+          </div>
+          <span class="tag">GeorgiaTech</span>
+        </div>
+
+        <div class="project" data-title="ISYE 6202 yubweng factory organisation testbed report" data-group="GeorgiaTech">
+          <div>
+            <a href="ISYE6202_Case3_report.pdf" target="_blank" rel="noopener"><strong>EN — ISYE 6202 — YubWeng Report</strong></a>
+            <div class="meta">Factory organization testbed.</div>
+          </div>
+          <span class="tag">GeorgiaTech</span>
+        </div>
+
+        <div class="project" data-title="ISYE 6202 easynode smart locker design report" data-group="GeorgiaTech">
+          <div>
+            <a href="ISYE6202_Case4_report.pdf" target="_blank" rel="noopener"><strong>EN — ISYE 6202 — EasyNode Report</strong></a>
+            <div class="meta">Smart locker design.</div>
+          </div>
+          <span class="tag">GeorgiaTech</span>
+        </div>
+      </section>
+
+      <!-- Arts et Métiers -->
+      <section class="card" data-group="Arts et Métiers">
+        <h2>Arts et Métiers Projects</h2>
+        <p class="hint">Conception / dimensionnement / fabrication additive.</p>
+
+        <div class="project" data-title="clock additive manufacturing sizing creation dossier cas etude" data-group="Arts et Métiers">
+          <div>
+            <a href="Dossier_Cas_Etude_Groupe1.pdf" target="_blank" rel="noopener"><strong>FR — Horloge (Additive Manufacturing)</strong></a>
+            <div class="meta">Sizing & creation of a clock using additive manufacturing.</div>
+          </div>
+          <span class="tag">Arts et Métiers</span>
+        </div>
+
+        <div class="project" data-title="centrifugal compressor additive manufacturing sizing report" data-group="Arts et Métiers">
+          <div>
+            <a href="Compressor_Report_BRUGEROLLE_BERDESH_EYMERY_CHUTTARSING (1).pdf" target="_blank" rel="noopener"><strong>EN — Centrifugal Compressor (Additive)</strong></a>
+            <div class="meta">Sizing & creation using additive manufacturing.</div>
+          </div>
+          <span class="tag">Arts et Métiers</span>
+        </div>
+
+        <div class="project" data-title="city wind turbine sizing cad merged" data-group="Arts et Métiers">
+          <div>
+            <a href="ilovepdf_merged.pdf" target="_blank" rel="noopener"><strong>FR — Éolienne urbaine (Sizing & CAD)</strong></a>
+            <div class="meta">Dimensionnement + CAO.</div>
+          </div>
+          <span class="tag">Arts et Métiers</span>
+        </div>
+      </section>
+
+      <!-- Prépa -->
+      <section class="card" data-group="Classe Préparatoire">
+        <h2>Classe Préparatoire Projects</h2>
+        <p class="hint">TIPE / physique appliquée.</p>
+
+        <div class="project" data-title="doppler velocimetry ophthalmologic hemodynamics tipe 2022" data-group="Classe Préparatoire">
+          <div>
+            <a href="TIPE EYMERY 2022.pdf" target="_blank" rel="noopener"><strong>FR — Doppler Velocimetry (Ophthalmologic Hemodynamics)</strong></a>
+            <div class="meta">Principe et application.</div>
+          </div>
+          <span class="tag">Prépa</span>
+        </div>
+
+        <div class="project" data-title="attenuation high-frequency electromagnetic waves HQE buildings tipe" data-group="Classe Préparatoire">
+          <div>
+            <a href="TIPE EYMERY.pdf" target="_blank" rel="noopener"><strong>FR — Attenuation of High-Frequency EM Waves (HQE)</strong></a>
+            <div class="meta">Étude de propagation / matériaux.</div>
+          </div>
+          <span class="tag">Prépa</span>
+        </div>
+      </section>
+    </div>
+
+    <footer>© <span id="year"></span> Guillaume Eymery</footer>
+  </main>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    const searchEl = document.getElementById("search");
+    const filterEl = document.getElementById("filter");
+    const projects = Array.from(document.querySelectorAll(".project"));
+    const cards = Array.from(document.querySelectorAll("section.card[data-group]"));
+
+    function apply(){
+      const q = (searchEl.value || "").trim().toLowerCase();
+      const f = filterEl.value;
+
+      // Filtrer les projets
+      projects.forEach(p => {
+        const title = (p.dataset.title || "").toLowerCase();
+        const group = p.dataset.group;
+        const matchText = !q || title.includes(q);
+        const matchGroup = (f === "all") || (group === f);
+        p.style.display = (matchText && matchGroup) ? "" : "none";
+      });
+
+      // Masquer une carte si elle ne contient plus de projets visibles
+      cards.forEach(card => {
+        const visibleInside = Array.from(card.querySelectorAll(".project"))
+          .some(p => p.style.display !== "none");
+        card.style.display = visibleInside ? "" : "none";
+      });
+    }
+
+    searchEl.addEventListener("input", apply);
+    filterEl.addEventListener("change", apply);
+    apply();
+  </script>
 </body>
 </html>
 
