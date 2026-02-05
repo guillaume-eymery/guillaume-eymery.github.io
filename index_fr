@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Guillaume Eymery — Portfolio</title>
+  <meta name="description" content="Portfolio de Guillaume Eymery — Ingénierie Industrielle & Systèmes, Georgia Tech." />
+  <style>
+    :root{
+      --bg: #0b1220;
+      --surface: rgba(255,255,255,0.06);
+      --surface2: rgba(255,255,255,0.10);
+      --text: #e8eefc;
+      --muted: rgba(232,238,252,0.72);
+      --brand: #7c3aed;
+      --brand2: #22c55e;
+      --border: rgba(255,255,255,0.14);
+      --shadow: 0 18px 60px rgba(0,0,0,0.35);
+      --radius: 18px;
+      --max: 1060px;
+    }
+
+    *{ box-sizing: border-box; }
+    html{ scroll-behavior: smooth; }
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background:
+        radial-gradient(1200px 600px at 10% 0%, rgba(124,58,237,0.28), transparent 60%),
+        radial-gradient(900px 500px at 90% 10%, rgba(34,197,94,0.22), transparent 55%),
+        radial-gradient(900px 600px at 50% 120%, rgba(59,130,246,0.18), transparent 60%),
+        var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    a{ color: inherit; text-decoration: none; }
+    a.underline{ text-decoration: underline; text-underline-offset: 3px; }
+
+    .container{
+      width: min(var(--max), calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    /* Header / Hero */
+    header.hero{
+      position: relative;
+      padding: 44px 0 22px;
+    }
+    .heroCard{
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: 22px;
+      align-items: center;
+      background: linear-gradient(180deg, var(--surface2), var(--surface));
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 22px;
+      overflow: hidden;
+      position: relative;
+    }
+    .heroCard::before{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      background: radial-gradient(600px 240px at 20% 10%, rgba(124,58,237,0.30), transparent 60%),
+                  radial-gradient(520px 240px at 80% 30%, rgba(34,197,94,0.20), transparent 65%);
+      filter: blur(18px);
+      opacity: 0.9;
+      pointer-events: none;
+    }
+    .heroCard > *{ position: relative; }
+
+    .avatar{
+      width: 150px;
+      height: 150px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      object-fit: cover;
+      box-shadow: 0 12px 28px rgba(0,0,0,0.35);
+      background: rgba(255,255,255,0.08);
+    }
+    .heroTitle{
+      margin:0;
+      font-size: clamp(26px, 3.4vw, 42px);
+      letter-spacing: -0.02em;
+      line-height: 1.05;
+    }
+    .heroSubtitle{
+      margin: 10px 0 14px;
+      color: var(--muted);
+      font-size: 1.05rem;
+      line-height: 1.5;
+      max-width: 70ch;
+    }
+    .pillRow{
+      display:flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    .pill{
+      font-size: 0.92rem;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.05);
+      color: var(--muted);
+      backdrop-filter: blur(8px);
+    }
+    .ctaRow{
+      display:flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 6px;
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap: 10px;
+      padding: 11px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.06);
+      color: var(--text);
+      cursor: pointer;
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+      user-select: none;
+    }
+    .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,0.09); border-color: rgba(255,255,255,0.22); }
+    .btn.primary{
+      background: linear-gradient(135deg, rgba(124,58,237,0.85), rgba(99,102,241,0.65));
+      border-color: rgba(124,58,237,0.55);
+    }
+    .btn.primary:hover{ background: linear-gradient(135deg, rgba(124,58,237,0.95), rgba(99,102,241,0.78)); }
+
+    /* Sticky nav */
+    nav.sticky{
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(12px);
+      background: rgba(11,18,32,0.55);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .navInner{
+      display:flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      gap: 12px;
+    }
+    .brand{
+      display:flex; align-items:center; gap: 10px;
+      font-weight: 650;
+      letter-spacing: -0.01em;
+      color: var(--text);
+      white-space: nowrap;
+    }
+    .dot{
+      width: 10px; height: 10px; border-radius: 999px;
+      background: linear-gradient(135deg, var(--brand), var(--brand2));
+      box-shadow: 0 0 0 4px rgba(124,58,237,0.15);
+    }
+    .navLinks{
+      display:flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      justify-content: flex-end;
+    }
+    .navLinks a{
+      padding: 9px 11px;
+      border-radius: 10px;
+      color: var(--muted);
+      border: 1px solid transparent;
+      transition: background .12s ease, color .12s ease, border-color .12s ease;
+      font-size: 0.95rem;
+    }
+    .navLinks a:hover{
+      background: rgba(255,255,255,0.06);
+      border-color: rgba(255,255,255,0.10);
+      color: var(--text);
+    }
+
+    /* Sections */
+    main{ padding: 18px 0 54px; }
+    .grid{
+      display:grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 16px;
+      margin-top: 16px;
+    }
+    section.card{
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.24);
+      padding: 18px;
+    }
+    h2{
+      margin: 0 0 10px;
+      font-size: 1.1rem;
+      letter-spacing: -0.01em;
+    }
+    p{ margin: 0 0 10px; color: var(--muted); line-height: 1.6; }
+    .list{
+      display:flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .item{
+      display:flex;
+      gap: 12px;
+      align-items:flex-start;
+      padding: 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.04);
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+    }
+    .item:hover{ transform: translateY(-1px); background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.16); }
+    .badge{
+      flex: 0 0 auto;
+      font-size: 0.80rem;
+      padding: 6px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.16);
+      color: var(--text);
+      background: rgba(124,58,237,0.14);
+    }
+    .item strong{ display:block; margin-bottom: 2px; }
+    .muted{ color: var(--muted); }
+
+    /* Footer */
+    footer{
+      padding: 20px 0 30px;
+      color: rgba(232,238,252,0.55);
+      text-align: center;
+    }
+
+    /* Back to top button */
+    .toTop{
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(6px);
+      transition: opacity .15s ease, transform .15s ease;
+    }
+    .toTop.show{
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    /* Responsive */
+    @media (max-width: 860px){
+      .heroCard{ grid-template-columns: 1fr; text-align: center; }
+      .heroCard .pillRow, .heroCard .ctaRow{ justify-content: center; }
+      .grid{ grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="hero">
+    <div class="container">
+      <div class="heroCard">
+        <img class="avatar" src="IMG-20250117-WA0000.jpg" alt="Photo de Guillaume Eymery" />
+        <div>
+          <h1 class="heroTitle">Guillaume Eymery</h1>
+          <p class="heroSubtitle">
+            Ancien étudiant diplômé de Georgia Tech (Industrial \& Systems Engineering). Intéressé par le
+            développement de modèles, l’IA agentique, l’analytique et l’optimisation de processus.
+          </p>
+
+          <div class="pillRow">
+            <span class="pill">IA</span>
+            <span class="pill">Analytics</span>
+            <span class="pill">Optimisation</span>
+            <span class="pill">Modélisation</span>
+          </div>
+
+          <div class="ctaRow">
+            <a class="btn primary" href="projects_fr.html">Voir mes projets</a>
+            <a class="btn" href="#cv">Télécharger mon CV</a>
+            <a class="btn" href="#contact">Contact</a>
+            <a class="btn" href="index.html">EN English Version</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="sticky" aria-label="Navigation principale">
+    <div class="container">
+      <div class="navInner">
+        <div class="brand"><span class="dot"></span> GE</div>
+        <div class="navLinks">
+          <a href="#about">À propos</a>
+          <a href="projects_fr.html">Projets</a>
+          <a href="#cv">CV</a>
+          <a href="#contact">Contact</a>
+          <a href="#linkedin">LinkedIn</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container">
+    <div class="grid">
+      <section id="about" class="card">
+        <h2>À propos</h2>
+        <p>
+          Bonjour ! Je suis Guillaume. J’aime transformer des problèmes complexes en solutions
+          concrètes grâce à la donnée, à la modélisation et à l’optimisation.
+        </p>
+
+        <div class="list">
+          <div class="item">
+            <span class="badge">Focus</span>
+            <div>
+              <strong>Développement de modèles & analytique</strong>
+              <div class="muted">Intelligence artificielle, séries temporelles, prévision, aide à la décision, expérimentation.</div>
+            </div>
+          </div>
+          <div class="item">
+            <span class="badge">Compétences</span>
+            <div>
+              <strong>Optimisation & amélioration de processus</strong>
+              <div class="muted">Approche recherche opérationnelle, résultats mesurables.</div>
+            </div>
+          </div>
+          <div class="item">
+            <span class="badge">Actuellement</span>
+            <div>
+              <strong>Études supérieures @ Georgia Tech</strong>
+              <div class="muted">Industrial \& Systems Engineering.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <aside class="card">
+        <h2>Liens rapides</h2>
+        <div class="list">
+          <a class="item" href="projects_fr.html">
+            <span class="badge">📁</span>
+            <div>
+              <strong>Projets</strong>
+              <div class="muted">Rapports, présentations, travail de recherche.</div>
+            </div>
+          </a>
+
+          <a class="item" href="Eymery_Resume_C.pdf" target="_blank" rel="noopener">
+            <span class="badge">CV</span>
+            <div>
+              <strong>Resume (EN)</strong>
+              <div class="muted">Téléchargement PDF.</div>
+            </div>
+          </a>
+
+          <a class="item" href="CV_Eymery_CDI_DS.pdf" target="_blank" rel="noopener">
+            <span class="badge">CV</span>
+            <div>
+              <strong>CV (FR)</strong>
+              <div class="muted">Téléchargement PDF.</div>
+            </div>
+          </a>
+
+          <a class="item" href="https://www.linkedin.com/in/guillaume-eymery-849a56322/" target="_blank" rel="noopener">
+            <span class="badge">in</span>
+            <div>
+              <strong>LinkedIn</strong>
+              <div class="muted">Posts & actualités.</div>
+            </div>
+          </a>
+        </div>
+      </aside>
+    </div>
+
+    <section id="cv" class="card" style="margin-top:16px;">
+      <h2>CV</h2>
+      <p>
+        <a class="btn" href="Eymery Resume Quant 2026.pdf" target="_blank" rel="noopener">Télécharger Resume (EN)</a>
+        <a class="btn" href="CV_stage_Fr_Inge.pdf" target="_blank" rel="noopener" style="margin-left:8px;">Télécharger CV (FR)</a>
+      </p>
+    </section>
+
+    <section id="contact" class="card" style="margin-top:16px;">
+      <h2>Me contacter :</h2>
+      <p>Email : <a class="underline" href="mailto:geymery3@gatech.edu">geymery3@gatech.edu</a></p>
+      <p>Perso : <a class="underline" href="mailto:guillaume.eymery@gadz.org">guillaume.eymery@gadz.org</a></p>
+    </section>
+
+    <section id="linkedin" class="card" style="margin-top:16px;">
+      <h2>LinkedIn</h2>
+      <p>
+        Retrouvez mes dernières publications sur :
+        <a class="underline" href="https://www.linkedin.com/in/guillaume-eymery-849a56322/" target="_blank" rel="noopener">LinkedIn</a>.
+      </p>
+    </section>
+
+    <footer>
+      <div>© <span id="year"></span> Guillaume Eymery</div>
+    </footer>
+  </main>
+
+  <div class="toTop" id="toTop">
+    <button class="btn" type="button" aria-label="Retour en haut">↑ Haut</button>
+  </div>
+
+  <script>
+    // Année auto
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Bouton retour en haut
+    const toTop = document.getElementById("toTop");
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 400) toTop.classList.add("show");
+      else toTop.classList.remove("show");
+    });
+    toTop.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+  </script>
+</body>
+</html>
